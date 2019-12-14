@@ -1,4 +1,8 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
+
 const config = {
     apiKey: "AIzaSyCo0vjpSue2qYEO8rbALbADZFlm0YLRtcU",
     authDomain: "farmguide-demo.firebaseapp.com",
