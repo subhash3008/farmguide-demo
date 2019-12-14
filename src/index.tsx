@@ -1,12 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reduxThunk from 'redux-thunk';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './components/App';
+import reducers from './reducers'
+import * as actionTypes from './actions/actionTypes';
+import firebase from './firebase';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Redux Devtools
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// Create Store
+const store = createStore(
+    reducers,
+    composeEnhancers(applyMiddleware(reduxThunk))
+);
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        console.log('APP USER :::', user);
+        if (user.email) {
+            store.dispatch(
+                {
+                    type: actionTypes.SET_CURRENT_USER,
+                    payload: user.email
+                }
+            );
+        }
+    } else {
+        console.log('APP USER:::: no users');
+    }
+});
+
+ReactDOM.render(
+    <Provider store={ store }>
+        <App />
+    </Provider>,
+    document.querySelector('#root')
+);

@@ -1,0 +1,9 @@
+.App {
+    font-family: sans-serif;
+
+    background: url('/images/homepage_bg.jpeg') center/cover no-repeat;
+    background-color: darken(lightyellow, 30%);
+    background-blend-mode: darken;
+    color: #fefefe;
+    min-height: 100vh;
+}

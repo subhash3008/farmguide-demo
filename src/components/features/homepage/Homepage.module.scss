@@ -1,0 +1,23 @@
+@mixin padding-x {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    @media (min-width: 768px) {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+.Homepage {
+    @include padding-x;
+    min-height: calc(100vh - 73px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+
+    &__LoginContainer {
+        display: flex;
+    }
+}

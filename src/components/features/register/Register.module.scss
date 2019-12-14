@@ -1,0 +1,90 @@
+.Login {
+    padding: 20px 40px;
+    border-radius: 10px;
+    opacity: .9;
+    width: 26vw;
+    text-align: center;
+    background: rgba(0,0,0,.5);
+
+    @media (max-width: 768px) {
+        padding: 20px;
+        width: 80vw;
+    }
+
+    &__Title {
+        font-size: 30px;
+        background: linear-gradient(to right, paleturquoise, mediumseagreen);
+        background-clip: text;
+        color: transparent;
+        margin: 10px auto 20px;
+        text-transform: capitalize;
+    }
+
+
+    &__Form {
+        &__Field {
+            &__Control {
+                &__Label {
+                    margin-bottom: 15px;
+                    font-size: 26px;
+
+                    @media (max-width: 768px) {
+                        font-size: 20px;
+                    }
+                }
+                &__Input {
+                    width: 80%;
+                    margin: 10px auto;
+                    font-size: 24px;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    border: 1px solid #efefef;
+                    background: transparent;
+
+                    color: #efefef;
+
+                    &::placeholder {
+                        color: #efefef;
+                    }
+
+                    @media (max-width: 768px) {
+                        font-size: 18px;
+                        margin: 10px auto;
+                        padding: 10px;
+                    }
+                }
+
+                &__InputError {
+                    font-size: 16px;
+                    color: lighten(dodgerblue, 5%);
+                }
+
+                &__Submit {
+                    align-self: center;
+                    margin-top: 20px;
+
+                    padding: 10px;
+                    background: #fefefe;
+                    color: darken(#02CC66, 10%);
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    opacity: 1;
+                    width: 40%;
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        background: darken(#02CC66, 10%);
+                        color: #fefefe;
+                        cursor: pointer;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+            }
+        }
+    }
+}
