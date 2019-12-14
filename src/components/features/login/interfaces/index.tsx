@@ -1,4 +1,10 @@
 export interface LoginProps {
+    emailLogin: boolean,
     handleClose(): void,
-    onLogin(email: string, password: string): void
+    onLogin: any
+}
+
+export interface PhoneLoginProps {
+    onLogin: any,
+    onClose(): void
 }

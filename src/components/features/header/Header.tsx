@@ -12,10 +12,10 @@ import firebase from '../../../firebase';
 import * as utils from '../../utils';
 import history from '../../../history';
 
-class Header extends React.Component<HeaderProps, { showModal: boolean }> {
+class Header extends React.Component<HeaderProps, { showModal: boolean, isEmail: boolean }> {
     constructor(props: HeaderProps) {
         super(props);
-        this.state = { showModal: false };
+        this.state = { showModal: false, isEmail: true };
     }
 
     componentDidMount() {
@@ -28,7 +28,7 @@ class Header extends React.Component<HeaderProps, { showModal: boolean }> {
         }
     }
 
-    onLogin = async (email: string, password: string) => {
+    onLogin = async (email: string, password: string, phoneNumber?: string) => {
         if (email && password) {
             try {
                 const resp = await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -54,9 +54,21 @@ class Header extends React.Component<HeaderProps, { showModal: boolean }> {
         }
     }
 
-    handleBtnClick = async () => {
-        const user = await firebase.auth().currentUser;
-        if (user && user.email) {
+    onPhoneLogin = (phoneNumber: string) => {
+        if (phoneNumber) {
+            this.setState({ showModal: false });
+            this.props.setCurrentUser(phoneNumber);
+            utils.successToast('Signed in successfully');
+            history.push('/crops');
+        } else {
+            utils.errorToast('Could not log in. Please try again.');
+        }
+        console.log('PHONE LOGIN.');
+    }
+
+    handleLogout = async () => {
+        // const user = await firebase.auth().currentUser;
+        // if (user && user.email) {
             try {
                 await firebase.auth().signOut();
                 this.props.removeCurrentUser();
@@ -66,9 +78,51 @@ class Header extends React.Component<HeaderProps, { showModal: boolean }> {
                 utils.errorToast('Could not sign out. Please try again');
                 console.error(e);
             }
-        } else {
-            this.setState({ showModal: true });
+        // }
+    }
+
+    handleLogin = (flag: string) => {
+        if (flag === 'email') {
+            this.setState({ isEmail: true }, () => {
+                this.setState({ showModal: true });
+            });
+        } else if (flag === 'phone') {
+            this.setState({ isEmail: false }, () => {
+                this.setState({ showModal: true });
+            });
         }
+    }
+
+    renderLoginBtn = () => {
+        if (this.props.currentUser) {
+            return (
+                <button
+                    className={styles.Header__Auth__Btn}
+                    style={{ background: 'crimson' }}
+                    onClick={this.handleLogout}
+                >
+                    Logout
+                </button>
+            );
+        }
+        return (
+            <React.Fragment>
+                <button
+                    className={styles.Header__Auth__Btn}
+                    style={{ background: 'dodgerblue' }}
+                    onClick={() => this.handleLogin('email')}
+                >
+                    {this.props.currentUser ? 'Logout' : 'Email Login'}
+                </button>
+                <button
+                    className={styles.Header__Auth__Btn}
+                    style={{ background: 'dodgerblue' }}
+                    onClick={() => this.handleLogin('phone')}
+                >
+                    {this.props.currentUser ? 'Logout' : 'Phone Login'}
+                </button>
+            </React.Fragment>
+        );
     }
 
     render() {
@@ -83,21 +137,24 @@ class Header extends React.Component<HeaderProps, { showModal: boolean }> {
                     </div>
                 </div>
                 <div className={styles.Header__Content}>
+                    &nbsp;
                 </div>
                 <div className={styles.Header__Auth}>
-                    <button
-                        className={styles.Header__Auth__Btn}
-                        style={{ background: this.props.currentUser ? 'crimson' : 'dodgerblue' }}
-                        onClick={this.handleBtnClick}
-                    >
-                        {this.props.currentUser ? 'Logout' : 'Login'}
-                    </button>
+                    {this.renderLoginBtn()}
                 </div>
                 {this.state.showModal ?
-                    <Modal
-                        onLogin={this.onLogin}
-                        handleClose={() => this.setState({showModal: false})}
-                    /> :
+                    (this.state.isEmail ?
+                        <Modal
+                            emailLogin={true}
+                            onLogin={this.onLogin}
+                            handleClose={() => this.setState({showModal: false})}
+                        /> :
+                        <Modal
+                            emailLogin={false}
+                            onLogin={this.onPhoneLogin}
+                            handleClose={() => this.setState({ showModal: false })}
+                        />
+                    ) :
                     null
                 }
                 <ToastContainer />

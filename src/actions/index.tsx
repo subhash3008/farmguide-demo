@@ -21,7 +21,7 @@ export const setCurrentUser = (email: string) => (dispatch: Dispatch) => {
 
 export const getCurrentUser = () => async (dispatch: Dispatch) => {
     const user = await firebase.auth().currentUser;
-    dispatch({ type: actionTypes.GET_CURRENT_USER, payload: user?.email });
+    dispatch({ type: actionTypes.GET_CURRENT_USER, payload: user?.email || user?.phoneNumber });
 }
 
 export const removeCurrentUser = () => async (dispatch: Dispatch) => {
