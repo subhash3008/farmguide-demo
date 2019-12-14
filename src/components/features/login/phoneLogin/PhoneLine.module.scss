@@ -1,0 +1,67 @@
+.PhoneLogin {
+    &__Form {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: flex-start;
+
+        &__Field {
+            width: 100%;
+            margin: 5px 0;
+
+            input {
+                border: 1px solid #efefef;
+                width: 80%;
+                padding: 10px;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+        }
+
+        &__Btn__Verify {
+            margin: 5px 0;
+            button {
+                border: none;
+                font-size: 12px;
+                color: dodgerblue;
+                cursor: pointer;
+
+                &:hover {
+                    text-transform: uppercase;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        &__Footer {
+            width: 100%;
+            margin-top: 5px;
+            border-top: 1px solid #efefef;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 10px 5px;
+
+            & > * {
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                color: #fff;
+    
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+    
+            &__Login {
+                background: crimson;
+            }
+    
+            &__Cancel {
+                background: goldenrod;
+            }
+        }
+    }
+}
