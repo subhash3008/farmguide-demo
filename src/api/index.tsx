@@ -19,7 +19,6 @@ _api.interceptors.request.use(
 
 _api.interceptors.response.use(
     response => {
-        console.log('API : ', _api);
         console.log('RES : ', response);
         return response;
     },
