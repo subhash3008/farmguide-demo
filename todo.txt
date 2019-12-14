@@ -1,4 +1,0 @@
-1. Add firebase authentication
-2. Make webpage responsive of login
-3. Deploy app on github(subhashchandra.tech)
-4. Add buy and sell functionalities of crops (Xtra)
