@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './PhoneLine.module.scss';
 import firebase from '../../../../firebase';
 import { PhoneLoginProps } from '../interfaces';
+import * as utils from '../../../utils';
 
 declare global {
     interface Window {
@@ -19,7 +20,7 @@ class PhoneLogin extends React.Component<PhoneLoginProps> {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
             "recaptcha-container",
             {
-                'size': 'invisible',
+                'size': 'normal',
                 'callback': (response: any) => {
                     console.log('RESPONSE ::', response);
                     this.submitPhoneNumberAuth();
@@ -44,6 +45,8 @@ class PhoneLogin extends React.Component<PhoneLoginProps> {
                 )
                 .catch(
                     error => {
+                        const eMessage = error.message;
+                        utils.errorToast(eMessage);
                         console.error(error);
                     }
                 );
@@ -65,6 +68,8 @@ class PhoneLogin extends React.Component<PhoneLoginProps> {
                 )
                 .catch(
                     (error: any) => {
+                        const eMessage = error.message;
+                        utils.errorToast(eMessage);
                         console.error(error);
                     }
                 );
@@ -111,7 +116,6 @@ class PhoneLogin extends React.Component<PhoneLoginProps> {
                             Cancel
                         </button>
                     </div>
-
                 </div>
             </div>
         );

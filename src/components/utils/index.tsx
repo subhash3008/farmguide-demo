@@ -10,7 +10,7 @@ export const scrollToTop = () => {
 
 export const warningToast = (message: string) => toast.warn(message, {
     position: 'top-right',
-    autoClose: 1000,
+    autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -19,7 +19,7 @@ export const warningToast = (message: string) => toast.warn(message, {
 
 export const errorToast = (message: string) => toast.error(message, {
     position: 'top-right',
-    autoClose: 1000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -28,7 +28,7 @@ export const errorToast = (message: string) => toast.error(message, {
 
 export const infoToast = (message: string) => toast.info(message, {
     position: 'top-right',
-    autoClose: 1000,
+    autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

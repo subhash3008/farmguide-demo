@@ -1,7 +1,6 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form'
 import {connect} from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import styles from './Register.module.scss';
@@ -95,7 +94,6 @@ class Register extends React.Component<RegisterProps> {
                         </div>
                     </div>
                 </form>
-                <ToastContainer />
             </div>
         );
     }
