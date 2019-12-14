@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import styles from './CropList.module.scss';
 import { AppState } from '../../../AppState';
-import { getCropList } from '../../../actions';
 import { CropListProps, Crop } from './interfaces';
 import Card from '../../shared/card/Card';
 
@@ -40,11 +39,6 @@ const mapStateToProps = (state: AppState) => {
     };
 }
 
-const mapDispatchToProps = {
-    getCropList
-}
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(CropList);

@@ -6,7 +6,7 @@ import { _api } from '../api';
 import urls from '../api/urls';
 
 export const getCropList = () => async (dispatch: Dispatch) => {
-    console.log('IN GET CROP LIST ::', _api);
+    console.log('IN GET CROP LIST ::', _api, urls);
     const response = await _api.get(urls.getCrops);
     let payload = null;
     if (response && response.data && response.data.length) {

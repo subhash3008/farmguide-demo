@@ -8,6 +8,7 @@ import { getCropList } from '../actions';
 class App extends React.Component<{ getCropList(): void }> {
 
     componentDidMount() {
+        console.log('SENDING CROPS LIST REQUEST');
         this.props.getCropList();
     }
 
