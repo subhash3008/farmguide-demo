@@ -4,6 +4,8 @@ import styles from './Login.module.scss';
 import { LoginProps } from './interfaces';
 
 import PhoneLogin from './phoneLogin/PhoneLine';
+import firebase from '../../../firebase';
+import * as utils from '../../utils';
 
 class LoginModal extends React.Component<LoginProps> {
     inputRef = React.createRef<HTMLInputElement>();
@@ -64,6 +66,42 @@ class LoginModal extends React.Component<LoginProps> {
         );
     }
 
+    handlePasswordReset = async () => {
+        const user = this.inputRef.current && this.inputRef.current.value;
+        console.log('password reset user :::::', user);
+        if (!user) {
+            utils.warningToast('Please enter valid email');
+        } else {
+            try {
+                const response = await firebase.auth().sendPasswordResetEmail(user);
+                console.log('response password reset ::', response);
+                utils.successToast('Password reset email has been sent to your email.');
+                this.props.handleClose();
+            } catch (e) {
+                const eCode = e.code;
+                const eMessage = e.message;
+                if (eCode === 'auth/user-not-found') {
+                    utils.errorToast('User does not exist. Please create an account.');
+                } else if (eCode === 'auth/invalid-email') {
+                    utils.errorToast('Please provide a valid email');
+                } else {
+                    utils.errorToast('Something went wrong.' + eMessage);
+                }
+            }
+        }
+    }
+
+    renderResetPassword = () => {
+        return (
+            <button
+                className={styles.Modal__Body__ResetBtn}
+                onClick={this.handlePasswordReset}
+            >
+                Forgot Password
+            </button>
+        );
+    }
+
     render() {
         console.log('MODAL PROPS ::', this.props);
         return (
@@ -75,6 +113,7 @@ class LoginModal extends React.Component<LoginProps> {
                         </div>
                         <div className={styles.Modal__Body}>
                             {this.props.emailLogin ? this.renderEmailLogin() : this.renderPhoneLogin()}
+                            {this.props.emailLogin ? this.renderResetPassword() : null}
                         </div>
                         {this.props.emailLogin ?
                             (
