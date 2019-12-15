@@ -49,6 +49,23 @@
                 outline: none;
             }
         }
+
+        &__ResetBtn {
+            background: none;
+            color: dodgerblue;
+            border: none;
+            
+            &:hover {
+                text-transform: uppercase;
+                text-decoration: underline;
+                cursor: pointer;
+                color: darken(dodgerblue, 10%);
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
     }
 
     &__Footer {
