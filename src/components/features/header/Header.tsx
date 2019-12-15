@@ -42,8 +42,10 @@ class Header extends React.Component<HeaderProps, { showModal: boolean, isEmail:
                 const eCode = e.code;
                 if (eCode === 'auth/wrong-password') {
                     utils.errorToast('Wrong Password');
+                } else if (eCode === 'auth/user-not-found') {
+                    utils.errorToast('Email does not exist. Please create an account');
                 } else if (eCode === 'auth/invalid-email') {
-                    utils.errorToast('Email does not exist');
+                    utils.errorToast('Please provide a valid email');
                 } else {
                     utils.errorToast('Could not sign in. Please try again.');
                 }
