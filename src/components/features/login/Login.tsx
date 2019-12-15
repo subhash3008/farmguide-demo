@@ -106,7 +106,7 @@ class LoginModal extends React.Component<LoginProps> {
         console.log('MODAL PROPS ::', this.props);
         return (
             <React.Fragment>
-                <div className={styles.Wrapper}>
+                <div className={styles.Wrapper} onClick={this.onCancel}>
                     <div className={styles.Modal}>
                         <div className={styles.Modal__Header}>
                             <span>Login</span>
