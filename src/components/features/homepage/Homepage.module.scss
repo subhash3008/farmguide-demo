@@ -12,6 +12,10 @@
     @include padding-x;
     min-height: calc(100vh - 73px);
 
+    @media (max-width: 768px) {
+        min-height: calc(100vh - 109px);
+    }
+
     display: flex;
     align-items: center;
     justify-content: center;

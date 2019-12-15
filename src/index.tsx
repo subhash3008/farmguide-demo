@@ -21,11 +21,11 @@ const store = createStore(
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         console.log('APP USER :::', user);
-        if (user.email) {
+        if (user.email || user.phoneNumber) {
             store.dispatch(
                 {
                     type: actionTypes.SET_CURRENT_USER,
-                    payload: user.email
+                    payload: user.email || user.phoneNumber
                 }
             );
         }

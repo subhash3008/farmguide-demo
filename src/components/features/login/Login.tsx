@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './Login.module.scss';
 import { LoginProps } from './interfaces';
 
+import PhoneLogin from './phoneLogin/PhoneLine';
+
 class LoginModal extends React.Component<LoginProps> {
     inputRef = React.createRef<HTMLInputElement>();
     passwordRef = React.createRef<HTMLInputElement>();
@@ -30,7 +32,40 @@ class LoginModal extends React.Component<LoginProps> {
         this.props.handleClose();
     }
 
+    renderEmailLogin = () => {
+        return (
+            <React.Fragment>
+                <input
+                    className={styles.Modal__Body__Input}
+                    type="email"
+                    name="email"
+                    ref={this.inputRef}
+                    placeholder="Please enter email id"
+                />
+                <input
+                    className={styles.Modal__Body__Input}
+                    type="password"
+                    name="password"
+                    ref={this.passwordRef}
+                    placeholder="Please enter your password"
+                />
+            </React.Fragment>
+        );
+    }
+
+    renderPhoneLogin = () => {
+        return (
+            <React.Fragment>
+                <PhoneLogin
+                    onLogin={this.props.onLogin}
+                    onClose={this.props.handleClose}
+                />
+            </React.Fragment>
+        );
+    }
+
     render() {
+        console.log('MODAL PROPS ::', this.props);
         return (
             <React.Fragment>
                 <div className={styles.Wrapper}>
@@ -39,29 +74,21 @@ class LoginModal extends React.Component<LoginProps> {
                             <span>Login</span>
                         </div>
                         <div className={styles.Modal__Body}>
-                            <input
-                                className={styles.Modal__Body__Input}
-                                type="email"
-                                name="email"
-                                ref={this.inputRef}
-                                placeholder="Please enter email id"
-                            />
-                            <input
-                                className={styles.Modal__Body__Input}
-                                type="password"
-                                name="password"
-                                ref={this.passwordRef}
-                                placeholder="Please enter your password"
-                            />
+                            {this.props.emailLogin ? this.renderEmailLogin() : this.renderPhoneLogin()}
                         </div>
-                        <div className={styles.Modal__Footer}>
-                            <button className={styles.Modal__Footer__Login} onClick={this.handleLogin}>
-                                Login
-                            </button>
-                            <button className={styles.Modal__Footer__Cancel} onClick={this.onCancel}>
-                                Cancel
-                            </button>
-                        </div>
+                        {this.props.emailLogin ?
+                            (
+                                <div className={styles.Modal__Footer}>
+                                    <button className={styles.Modal__Footer__Login} onClick={this.handleLogin}>
+                                        Login
+                                    </button>
+                                    <button className={styles.Modal__Footer__Cancel} onClick={this.onCancel}>
+                                        Cancel
+                                    </button>
+                                </div>
+                            ) :
+                            null
+                        }
                     </div>
                 </div>
             </React.Fragment>
