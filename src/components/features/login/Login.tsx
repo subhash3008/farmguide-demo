@@ -106,29 +106,28 @@ class LoginModal extends React.Component<LoginProps> {
         console.log('MODAL PROPS ::', this.props);
         return (
             <React.Fragment>
-                <div className={styles.Wrapper}>
-                    <div className={styles.Modal}>
-                        <div className={styles.Modal__Header}>
-                            <span>Login</span>
-                        </div>
-                        <div className={styles.Modal__Body}>
-                            {this.props.emailLogin ? this.renderEmailLogin() : this.renderPhoneLogin()}
-                            {this.props.emailLogin ? this.renderResetPassword() : null}
-                        </div>
-                        {this.props.emailLogin ?
-                            (
-                                <div className={styles.Modal__Footer}>
-                                    <button className={styles.Modal__Footer__Login} onClick={this.handleLogin}>
-                                        Login
-                                    </button>
-                                    <button className={styles.Modal__Footer__Cancel} onClick={this.onCancel}>
-                                        Cancel
-                                    </button>
-                                </div>
-                            ) :
-                            null
-                        }
+                <div className={styles.OverLay} onClick={this.onCancel}></div>
+                <div className={styles.Modal}>
+                    <div className={styles.Modal__Header}>
+                        <span>Login</span>
                     </div>
+                    <div className={styles.Modal__Body}>
+                        {this.props.emailLogin ? this.renderEmailLogin() : this.renderPhoneLogin()}
+                        {this.props.emailLogin ? this.renderResetPassword() : null}
+                    </div>
+                    {this.props.emailLogin ?
+                        (
+                            <div className={styles.Modal__Footer}>
+                                <button className={styles.Modal__Footer__Login} onClick={this.handleLogin}>
+                                    Login
+                                </button>
+                                <button className={styles.Modal__Footer__Cancel} onClick={this.onCancel}>
+                                    Cancel
+                                </button>
+                            </div>
+                        ) :
+                        null
+                    }
                 </div>
             </React.Fragment>
         );
